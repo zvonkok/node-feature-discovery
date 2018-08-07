@@ -20,6 +20,7 @@ import (
 	"github.com/kubernetes-incubator/node-feature-discovery/source/rdt"
 	"github.com/kubernetes-incubator/node-feature-discovery/source/selinux"
 	"github.com/kubernetes-incubator/node-feature-discovery/source/storage"
+	"github.com/kubernetes-incubator/node-feature-discovery/source/gpu"
 	api "k8s.io/api/core/v1"
 	meta_v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	k8sclient "k8s.io/client-go/kubernetes"
@@ -137,7 +138,7 @@ func argsParse(argv []string) (args Args) {
   -h --help                   Show this screen.
   --version                   Output version and exit.
   --sources=<sources>         Comma separated list of feature sources.
-                              [Default: cpuid,iommu,memory,network,pstate,rdt,selinux,storage]
+                              [Default: cpuid,iommu,memory,network,pstate,rdt,selinux,storage,gpu]
   --no-publish                Do not publish discovered features to the
                               cluster-local Kubernetes API server.
   --label-whitelist=<pattern> Regular expression to filter label names to
@@ -196,6 +197,7 @@ func configureParameters(sourcesWhiteList []string, labelWhiteListStr string) (e
 		rdt.Source{},
 		selinux.Source{},
 		storage.Source{},
+		gpu.Source{},
 	}
 
 	enabledSources = []source.FeatureSource{}
